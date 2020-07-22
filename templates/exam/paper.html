@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    开始答题
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">{{ course_name }}</div>
+                <div class="panel-body">
+                    <form action="{% url 'result' %}" method="post">
+                        {% csrf_token %}
+                        <ol>
+                            {% for question in questions %}
+                                <li>
+                                    {{ question.title }}({{ question.score }}分)
+                                    <br>
+                                    {% if question.type == 'xz' %}
+                                        <input type="hidden" name="course_name" value="{{ course_name }}">
+                                        <input type="hidden" name="question_id" value="{{ question.id }}">
+                                        <input type="radio" name="{{ question.id }}" value="A"> A. {{ question.option_A }}<br>
+                                        <input type="radio" name="{{ question.id }}" value="B"> B. {{ question.option_B }}<br>
+                                        <input type="radio" name="{{ question.id }}" value="C"> C. {{ question.option_C }}<br>
+                                        <input type="radio" name="{{ question.id }}" value="D"> D. {{ question.option_D }}<br>
+                                    {% elif question.type == 'pd' %}
+                                        <input type="hidden" name="course_name" value="{{ course_name }}">
+                                        <input type="hidden" name="question_id" value="{{ question.id }}">
+                                        <input type="radio" name="{{ question.id }}" value="true"> 正确<br>
+                                        <input type="radio" name="{{ question.id }}" value="false"> 错误<br>
+                                    {% endif %}
+                                    <br>
+                                </li>
+                                {% empty %}
+                                <h3>——暂无题目——</h3>
+                            {% endfor %}
+                        </ol>
+{#                        {% if not answered %}#}
+                            <input class="btn btn-success" type="submit" value="提交">
+{#                           {% else %}#}
+{#                                <p>您已答完！</p>#}
+{#                        {% endif %}#}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    试卷列表
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">试卷列表</div>
+                <div class="panel-body">
+                    {% for course in courses %}
+                        <a href="{% url 'paper' course.pk %}"><h3>{{ course.name }}</h3></a>
+                        <p>{{ course.create_time }}</p>
+                        <p>{{ course.introduce }}</p>
+                        <br>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

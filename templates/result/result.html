@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    个人成绩
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">工号：{{ number.number }}的成绩</div>
+                <div class="panel-body">
+                    <h3>科目：{{ result_data.course_name }}</h3>
+                    <h3>成绩：{{ result_data.result }}分</h3>
+                    <h3>当前积分：{{ user.total_mark }}</h3>
+                    {% if not false_list %}
+                        <p>恭喜全部正确</p>
+                    {% else %}
+                        <h3>错题：</h3>
+                        <ul>
+                        {% for i in false_question %}
+
+                            <li><b>题目:{{ i.title }}</b> <br>正确答案：{{ i.answer }}</li>
+
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
